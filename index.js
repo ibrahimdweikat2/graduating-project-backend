@@ -19,10 +19,10 @@ app.get('/',(req,res)=>{
 });
 
 
-const PORT=process.env.PORT || 5000;
-const CONNECTION_URL=process.env.CONNECTION_URL;
 mongoose.set('strictQuery', true);
+app.listen(process.env.PORT || 5000);
 
-mongoose.connect(CONNECTION_URL,{useUnifiedTopology:true,useNewUrlParser:true})
-.then(PORT,app.listen(PORT=>console.log(`Server Run At Port : ${PORT}`)))
-.catch(error=>console.log(error.message));
+
+mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true,useUnifiedTopology:true})
+.then(()=>console.log(`Server is listening on port ${process.env.PORT || 5000}`))
+.catch(err => console.error(err));
