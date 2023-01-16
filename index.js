@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import authRouter from './Routers/Auth.js';
+import userRouter from './Routers/Users.js';
 
 const app =express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({limit:'40mb',extended:true}));
 app.use(cors());
 
 app.use('/api/auth',authRouter);
+app.use('/api/users',userRouter);
 
 app.get('/',(req,res)=>{
     res.send('App Is Running');
