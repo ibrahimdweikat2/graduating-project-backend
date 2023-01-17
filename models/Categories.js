@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const categorieSchema=mongoose.Schema({
-    title:{type:String, required:true},
+    title:{type:String, required:true,unique:true},
     Books:[
         {
             bookId:{

@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import authRouter from './Routers/Auth.js';
 import userRouter from './Routers/Users.js';
+import categoriesRouter from './Routers/Categories.js';
 
 const app =express();
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/api/auth',authRouter);
 app.use('/api/users',userRouter);
+app.use('/api/categories',categoriesRouter);
 
 app.get('/',(req,res)=>{
     res.send('App Is Running');
