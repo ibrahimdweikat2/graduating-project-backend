@@ -25,4 +25,4 @@ const bookSchema=mongoose.Schema({
     inStock:{type:Boolean, default:true},
 },{timestamps:true});
 
-export default mongoose.model('Book',bookSchema);
+export default mongoose.model('books',bookSchema);

@@ -11,7 +11,7 @@ const cartSchema=mongoose.Schema({
             bookId:{
                 type:mongoose.Schema.Types.ObjectId,
                 required:true,
-                ref:"Books"
+                ref:"books"
             },
             quantity:{
                 type:Number,
