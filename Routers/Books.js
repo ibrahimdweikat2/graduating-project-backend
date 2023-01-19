@@ -57,33 +57,49 @@ router.get("/find/:id",async(req,res)=>{
  //get all Books
 
  router.get("/",async(req,res)=>{
-    const query=req.query.new;
-    const queryCat=req.query.category;
+    const {page}=req.query;
     try{
-        let book;
-
-        if(query)
-        {
-            book=await Product.find().sort({createdAt:-1});
-        }
-        else if(queryCat)
-        {
-            book=await Product.find({category:{
-                $in:[queryCat],
-            }})
-        }else
-        {
-            book=await Product.find()
-        }
-
-        res.status(200).json(book);
-
-    
+        const Limit=12;
+        const startIndex=(Number(page)-1)*Limit;
+        const total=await Product.countDocuments({});
+        const books=await Product.find().skip(startIndex).limit(Limit);
+        res.status(200).json({books,numberOfPages:Math.ceil(total/Limit)});
     }catch(err)
     {
      res.status(500).json(err);
     }
  })
+
+ router.get('/search',async(req,res)=>{
+    const query=req.query.query;
+    try {
+        const books=await Product.find({$or:[{title:{$regex:query,$options:'i'}},{author:{$regex:query,$options:'i'}}]});
+        res.status(200).json(books);
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+ }
+)
+
+router.get('/bestsellers',async(req,res)=>{
+    try {
+        const books=await Product.find({review_count:{$gte:10000}}).limit(6);
+        res.status(200).json(books);
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+}
+)
+
+router.get('/toprate',async(req,res)=>{
+    try {
+        const books=await Product.find({rating:{$gte:4.3}}).limit(6);
+        res.status(200).json(books);
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+}
+)
 
 
 

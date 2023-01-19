@@ -17,11 +17,13 @@ const bookSchema=mongoose.Schema({
         type:String,
         required:true
     },
+    categories:Array,
     format:String,
     num_pages:Number,
     rating:Number,
     rating_count:Number,
     review_count:Number,
+    price:{type:Number,default:0},
     inStock:{type:Boolean, default:true},
 },{timestamps:true});
 

@@ -9,6 +9,7 @@ import categoriesRouter from './Routers/Categories.js';
 import booksRouter from './Routers/Books.js';
 import cartRouter from './Routers/Carts.js';
 import ordersRouter from './Routers/Orders.js';
+import stripeRouter from './Routers/payment.js'
 const app =express();
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/api/categories',categoriesRouter);
 app.use('/api/books',booksRouter);
 app.use('/api/carts',cartRouter);
 app.use('/api/orders',ordersRouter);
+app.use('/api/stripe',stripeRouter);
 
 
 app.get('/',(req,res)=>{
