@@ -79,5 +79,16 @@ router.get("/",verifyTokenAndAdmin,async(req,res)=>{
     }
  })
 
-
+router.put("/updatequantity/:id",verifyTokenAndAuthorization,async (req,res)=>{
+    try {
+        const cart=await Cart.findOne({userId:req?.params?.id});
+        if(!cart)return res.status(404).json({message:"Cart Not Found"});
+        Cart.findByIdAndUpdate({userId:req?.params?.id},{
+            $set:{...cart,quantity:quantity+1}
+        },{new:true});
+        return res.status(200).json({message:"Updated"});
+    } catch (error) {
+        return res.status(500).json({error: error});
+    }
+})
 export default router;
